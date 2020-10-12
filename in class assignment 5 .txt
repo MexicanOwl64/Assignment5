@@ -1,0 +1,112 @@
+// a queue is a FILO data structure.
+// inversely a "stack" is a FIFO data structure
+//
+#ifndef QUEUE_H
+#define QUEUE_H
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct QueueNode {
+    int data;
+    struct QueueNode * next;
+};
+
+struct StackNode
+{
+    int data;
+    struct StackNode * next;
+};
+
+struct QueueNode * init(const int data)
+{
+    struct QueueNode * new_node =
+        (struct QueueNode *)malloc(sizeof(struct QueueNode));
+
+    if(new_node == NULL)
+    {
+        exit(1);
+    }
+    new_node->next = NULL;
+    return new_node;
+}
+
+void destroy(struct QueueNode * node)
+{
+    while(node->next != NULL)
+    {
+        struct QueueNode * old_node = node;
+        node = node->next;
+        free(old_node);
+        old_node = NULL;
+    }
+}
+
+void enqueue(struct QueueNode ** head, const int data)
+{
+    struct QueueNode * new_node = init(data);
+    struct QueueNode * last = *head;
+
+    if(*head == NULL)
+    {
+        *head = new_node;
+    }
+
+    while(last->next != NULL)
+    {
+        last = last->next;
+    }
+    last->next = new_node;
+}
+
+
+int dequeue(struct QueueNode **head)
+{
+    if(*head == NULL)
+    {
+        printf("%s", "No Head Supplied");
+        return 0;
+    }
+
+    int data = (*(*head)).data;
+
+    struct QueueNode * tmp = *head;
+
+    *head = (*(*head)).next;
+    free(tmp);
+    return data;
+}
+
+void push(struct StackNode **bottom, const int data)
+{
+    struct StackNode * bottom = init(data);
+    
+    if(*bottom == NULL)
+    {
+        *bottom = new_node;
+    }
+    
+    while(bottom->next != NULL)
+    {
+        *bottom = last->next;
+    }
+}
+
+int pop(struct StackNode **head, const int data)
+{
+    if(*top == NULL)
+    {
+        printf("%s", "Nothing on Top");
+        return 0;
+    }
+    
+    int data = (*(*bottom)).data;
+    
+    struct StackNode * tmp = *top;
+    
+    *top = (*(*top)).next;
+    free(tmp);
+    return data;
+}
+
+#endif
